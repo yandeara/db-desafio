@@ -21,10 +21,7 @@ public class PautaControllerV1 {
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<PautaResponse> create(@RequestBody(required = false) PautaRequest pautaRequest) {
-
-        PautaResponse pautaResponseDTO = pautaService.create(pautaRequest);
-
-        return ResponseEntity.ok().body(pautaResponseDTO);
+        return ResponseEntity.ok().body(pautaService.create(pautaRequest));
     }
 
 }
