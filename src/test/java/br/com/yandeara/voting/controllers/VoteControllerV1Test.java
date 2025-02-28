@@ -10,6 +10,7 @@ import br.com.yandeara.voting.web.controller.VoteControllerV1;
 import br.com.yandeara.voting.web.request.MotionRequest;
 import br.com.yandeara.voting.web.request.VoteSessionRequest;
 import br.com.yandeara.voting.web.response.MotionResponse;
+import br.com.yandeara.voting.web.response.VoteCountResponse;
 import br.com.yandeara.voting.web.response.VoteResponse;
 import br.com.yandeara.voting.web.response.VoteSessionResponse;
 import jakarta.persistence.EntityNotFoundException;
@@ -26,6 +27,7 @@ import java.time.ZonedDateTime;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -95,6 +97,29 @@ public class VoteControllerV1Test {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"motionId\":1,\"associateId\":1,\"associateVote\":true}"))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void count_motionNotFound_return404() throws Exception {
+        when(voteService.countVotes(any())).thenThrow(new EntityNotFoundException("Motion not found"));
+
+        mockMvc.perform(get("/api/v1/motion/vote/count")
+                        .param("motionId", "1"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void count_fullBody_returnOk() throws Exception {
+        VoteCountResponse voteCountResponse = new VoteCountResponse(1L, 1L, 1L);
+
+        when(voteService.countVotes(any())).thenReturn(voteCountResponse);
+
+        mockMvc.perform(get("/api/v1/vote/count")
+                        .param("motionId", "1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.motionId").exists())
+                .andExpect(jsonPath("$.totalYesVotes").exists())
+                .andExpect(jsonPath("$.totalNoVotes").exists());
     }
 
 }

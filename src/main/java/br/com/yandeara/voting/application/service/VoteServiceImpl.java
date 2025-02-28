@@ -4,11 +4,13 @@ import br.com.yandeara.voting.application.exception.AssociateAlreadyVotedExcepti
 import br.com.yandeara.voting.application.exception.MotionAlreadyClosedException;
 import br.com.yandeara.voting.application.exception.MotionNotOpenedException;
 import br.com.yandeara.voting.application.mapper.VoteMapper;
+import br.com.yandeara.voting.domain.dto.VoteCountDto;
 import br.com.yandeara.voting.domain.model.Motion;
 import br.com.yandeara.voting.domain.model.Vote;
 import br.com.yandeara.voting.domain.repository.MotionRepository;
 import br.com.yandeara.voting.domain.repository.VoteRepository;
 import br.com.yandeara.voting.web.request.VoteRequest;
+import br.com.yandeara.voting.web.response.VoteCountResponse;
 import br.com.yandeara.voting.web.response.VoteResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,19 @@ public class VoteServiceImpl implements VoteService {
         vote = voteRepository.save(vote);
 
         return voteMapper.toResponse(vote);
+    }
+
+    @Override
+    public VoteCountResponse countVotes(Long motionId) {
+        motionRepository
+                .findById(motionId)
+                .orElseThrow(() -> new EntityNotFoundException("Motion not found"));
+
+        VoteCountResponse voteCountResponse = voteMapper.toCountResponse(voteRepository.countVotes(motionId));
+
+        voteCountResponse.setMotionId(motionId);
+
+        return voteCountResponse;
     }
 
 }

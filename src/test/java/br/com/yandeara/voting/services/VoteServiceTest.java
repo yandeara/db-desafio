@@ -55,6 +55,7 @@ public class VoteServiceTest {
         when(motionRepository.findById(any())).thenReturn(Optional.of(motion));
         when(voteMapper.toEntity(any())).thenReturn(vote);
         when(voteMapper.toResponse(any())).thenReturn(voteResponse);
+        when(voteRepository.save(any())).thenReturn(vote);
 
         VoteRequest voteRequest = new VoteRequest(1L, 1L, true);
         VoteResponse voteResponseSaved = voteServiceImpl.vote(voteRequest);

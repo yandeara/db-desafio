@@ -1,10 +1,12 @@
 package br.com.yandeara.voting.application.mapper;
 
+import br.com.yandeara.voting.domain.dto.VoteCountDto;
 import br.com.yandeara.voting.domain.model.Motion;
 import br.com.yandeara.voting.domain.model.Vote;
 import br.com.yandeara.voting.web.request.MotionRequest;
 import br.com.yandeara.voting.web.request.VoteRequest;
 import br.com.yandeara.voting.web.response.MotionResponse;
+import br.com.yandeara.voting.web.response.VoteCountResponse;
 import br.com.yandeara.voting.web.response.VoteResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,5 +22,7 @@ public interface VoteMapper {
 
     @Mapping(source = "motion.id", target = "motionId")
     VoteResponse toResponse(Vote vote);
+
+    VoteCountResponse toCountResponse(VoteCountDto voteCountDto);
 
 }

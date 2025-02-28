@@ -39,6 +39,7 @@ public class MotionServiceTest {
 
         when(motionMapper.toResponse(any(Motion.class))).thenReturn(motionResponse);
         when(motionMapper.toEntity(any(MotionRequest.class))).thenReturn(motion);
+        when(motionRepository.save(any(Motion.class))).thenReturn(motion);
 
         MotionResponse motionResponseSaved = motionServiceImpl.create(new MotionRequest());
 
