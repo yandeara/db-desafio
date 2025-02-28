@@ -1,5 +1,6 @@
 package br.com.yandeara.voting.web.exception;
 
+import br.com.caelum.stella.validation.InvalidStateException;
 import br.com.yandeara.voting.application.exception.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -83,5 +84,15 @@ public class GlobalExceptionHandler {
                 .contentType(MediaType.TEXT_PLAIN)
                 .body("Invalid request: " + ex.getMessage());
     }
+
+    @ExceptionHandler(InvalidStateException.class)
+    public ResponseEntity<String> handleInvalidStateException(InvalidStateException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.TEXT_PLAIN)
+                .body("CPF invalid");
+    }
+
+
+
 
 }

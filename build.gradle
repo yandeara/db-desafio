@@ -36,6 +36,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
+    implementation 'br.com.caelum.stella:caelum-stella-core:2.2.0'
+
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
