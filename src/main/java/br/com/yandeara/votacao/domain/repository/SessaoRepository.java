@@ -1,6 +1,6 @@
-package br.com.yandeara.votacao.repositories;
+package br.com.yandeara.votacao.domain.repository;
 
-import br.com.yandeara.votacao.models.Sessao;
+import br.com.yandeara.votacao.domain.model.Sessao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,0 +1,22 @@
+services:
+  yugabyte:
+    image: yugabytedb/yugabyte:latest
+    container_name: yugabyte
+    ports:
+      - "5433:5433"
+      - "7000:7000"
+      - "9000:9000"
+      - "15433:15433"
+    volumes:
+      - yugabyte_data:/home/yugabyte/yb_data yugabytedb/yugabyte:lates
+    command: bin/yugabyted start --base_dir=/home/yugabyte/yb_data --background=false
+    networks:
+      - yugabyte_network
+
+networks:
+  yugabyte_network:
+    driver: bridge
+
+volumes:
+  yugabyte_data:
+    driver: local

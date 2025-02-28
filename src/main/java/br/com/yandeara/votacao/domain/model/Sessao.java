@@ -1,4 +1,4 @@
-package br.com.yandeara.votacao.models;
+package br.com.yandeara.votacao.domain.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -7,27 +7,28 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "voto", uniqueConstraints = {@UniqueConstraint(columnNames = {"sessao_id", "associado_id"})})
-
-public class Voto {
+@Table(name = "sessao")
+public class Sessao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "sessao_id", nullable = false)
-    private Sessao sessao;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pauta_id", nullable = false)
+    private Pauta pauta;
 
     @NotNull
-    private Long associadoId;
+    private LocalDateTime openingTime;
 
     @NotNull
-    private boolean voto;
+    private LocalDateTime closingTime;
 
 }

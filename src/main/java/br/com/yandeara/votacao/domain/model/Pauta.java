@@ -1,4 +1,4 @@
-package br.com.yandeara.votacao.models;
+package br.com.yandeara.votacao.domain.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

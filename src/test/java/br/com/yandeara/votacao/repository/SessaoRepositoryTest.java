@@ -1,8 +1,9 @@
-package br.com.yandeara.votacao.repositories;
+package br.com.yandeara.votacao.repository;
 
-import br.com.yandeara.votacao.models.Pauta;
-import br.com.yandeara.votacao.models.Sessao;
-import br.com.yandeara.votacao.models.Voto;
+import br.com.yandeara.votacao.domain.model.Pauta;
+import br.com.yandeara.votacao.domain.model.Sessao;
+import br.com.yandeara.votacao.domain.repository.PautaRepository;
+import br.com.yandeara.votacao.domain.repository.SessaoRepository;
 import jakarta.validation.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
