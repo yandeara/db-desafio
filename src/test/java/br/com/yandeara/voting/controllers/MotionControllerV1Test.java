@@ -118,7 +118,8 @@ public class MotionControllerV1Test {
         when(voteSessionService.openSession(any())).thenThrow(new EntityNotFoundException("Motion not found"));
 
         mockMvc.perform(post("/api/v1/motion/open-session")
-                        .contentType(MediaType.APPLICATION_JSON).content("{}"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"motionId\":1,\"sessionDuration\":\"1m\"}"))
                 .andExpect(status().isNotFound());
     }
 
@@ -127,8 +128,19 @@ public class MotionControllerV1Test {
         when(voteSessionService.openSession(any())).thenThrow(new RuntimeException("Server Error"));
 
         mockMvc.perform(post("/api/v1/motion/open-session")
-                        .contentType(MediaType.APPLICATION_JSON).content("{}"))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"motionId\":1,\"sessionDuration\":\"1m\"}"))
                 .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    public void openSession_invalidMotionId_return400() throws Exception {
+        when(voteSessionService.openSession(any())).thenThrow(new RuntimeException("Server Error"));
+
+        mockMvc.perform(post("/api/v1/motion/open-session")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"motionId\":null,\"sessionDuration\":\"1m\"}"))
+                .andExpect(status().isBadRequest());
     }
 
     @Test

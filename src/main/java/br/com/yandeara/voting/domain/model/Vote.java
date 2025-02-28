@@ -7,13 +7,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.ZonedDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"motion_id", "associate_id"})})
-
 public class Vote {
 
     @Id
@@ -29,5 +30,7 @@ public class Vote {
 
     @NotNull
     private boolean associateVote;
+
+    private ZonedDateTime voteTime;
 
 }

@@ -6,6 +6,7 @@ import br.com.yandeara.voting.web.request.VoteSessionRequest;
 import br.com.yandeara.voting.web.response.MotionResponse;
 import br.com.yandeara.voting.application.service.MotionService;
 import br.com.yandeara.voting.web.response.VoteSessionResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +32,7 @@ public class MotionControllerV1 {
     }
 
     @PostMapping(path = "/open-session", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<VoteSessionResponse> openSession(@RequestBody VoteSessionRequest voteSessionRequest) {
+    public ResponseEntity<VoteSessionResponse> openSession(@Valid @RequestBody VoteSessionRequest voteSessionRequest) {
         return ResponseEntity.ok().body(voteSessionService.openSession(voteSessionRequest));
     }
 

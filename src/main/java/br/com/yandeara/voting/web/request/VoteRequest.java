@@ -1,6 +1,5 @@
 package br.com.yandeara.voting.web.request;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,10 +10,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class VoteSessionRequest {
+public class VoteRequest {
 
     @NotNull(message = "Motion Id is required")
     private Long motionId;
-    private String sessionDuration;
+
+    @NotNull(message = "Associate Id is required")
+    private Long associateId;
+
+    @NotNull(message = "Associate Vote is required")
+    private Boolean associateVote;
 
 }
