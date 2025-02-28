@@ -3,7 +3,7 @@ package br.com.yandeara.voting.application.service;
 import br.com.yandeara.voting.application.exception.InvalidTimeFormatException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class TimeServiceImpl implements TimeService {
 
     @Override
-    public LocalDateTime addTime(LocalDateTime start, String duration) {
+    public ZonedDateTime addTime(ZonedDateTime start, String duration) {
         if (duration == null || duration.isEmpty()) {
             throw new InvalidTimeFormatException();
         }

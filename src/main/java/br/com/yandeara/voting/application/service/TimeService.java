@@ -1,9 +1,9 @@
 package br.com.yandeara.voting.application.service;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public interface TimeService {
 
-    LocalDateTime addTime(LocalDateTime start, String duration);
+    ZonedDateTime addTime(ZonedDateTime start, String duration);
 
 }

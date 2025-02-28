@@ -1,6 +1,7 @@
 package br.com.yandeara.voting.web.exception;
 
 import br.com.yandeara.voting.application.exception.InvalidTimeFormatException;
+import br.com.yandeara.voting.application.exception.MotionAlreadyOpenedException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,7 +30,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleInvalidTimeFormatException(InvalidTimeFormatException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.TEXT_PLAIN)
-                .body("Invalid Time Format: " + ex.getMessage());
+                .body("Invalid time format: " + ex.getMessage());
+    }
+
+    @ExceptionHandler(MotionAlreadyOpenedException.class)
+    public ResponseEntity<String> handleMotionAlreadyOpenedException(MotionAlreadyOpenedException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.TEXT_PLAIN)
+                .body("Invalid requisition: " + ex.getMessage());
     }
 
 }

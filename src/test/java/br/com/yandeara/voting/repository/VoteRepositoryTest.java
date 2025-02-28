@@ -1,10 +1,8 @@
 package br.com.yandeara.voting.repository;
 
 import br.com.yandeara.voting.domain.model.Motion;
-import br.com.yandeara.voting.domain.model.VoteSession;
 import br.com.yandeara.voting.domain.model.Vote;
 import br.com.yandeara.voting.domain.repository.MotionRepository;
-import br.com.yandeara.voting.domain.repository.VoteSessionRepository;
 import br.com.yandeara.voting.domain.repository.VoteRepository;
 import jakarta.validation.*;
 import org.junit.jupiter.api.Test;
@@ -12,16 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class VoteRepositoryTest {
-
-    @Autowired
-    private VoteSessionRepository voteSessionRepository;
 
     @Autowired
     private MotionRepository motionRepository;
@@ -32,21 +27,16 @@ public class VoteRepositoryTest {
     @Test
     void save_validRequest_shouldBeSaved() {
         Motion motion = new Motion();
+        motion.setOpeningTime(ZonedDateTime.now());
+        motion.setClosingTime(ZonedDateTime.now());
+
         motion = motionRepository.save(motion);
-
-        VoteSession voteSession = new VoteSession();
-
-        voteSession.setMotion(motion);
-        voteSession.setOpeningTime(LocalDateTime.now());
-        voteSession.setClosingTime(LocalDateTime.now());
-
-        voteSession = voteSessionRepository.save(voteSession);
 
         Vote vote = new Vote();
 
         vote.setAssociateId(1L);
         vote.setAssociateVote(true);
-        vote.setVoteSession(voteSession);
+        vote.setMotion(motion);
 
         Vote savedVote = voteRepository.save(vote);
 
@@ -56,26 +46,21 @@ public class VoteRepositoryTest {
     @Test
     void save_uniqueVoteForAssociate_shouldThrowViolationException() {
         Motion motion = new Motion();
+        motion.setOpeningTime(ZonedDateTime.now());
+        motion.setClosingTime(ZonedDateTime.now());
+
         motion = motionRepository.save(motion);
-
-        VoteSession voteSession = new VoteSession();
-
-        voteSession.setMotion(motion);
-        voteSession.setOpeningTime(LocalDateTime.now());
-        voteSession.setClosingTime(LocalDateTime.now());
-
-        voteSession = voteSessionRepository.save(voteSession);
 
         Vote voteOne = new Vote();
 
         voteOne.setAssociateId(1L);
-        voteOne.setVoteSession(voteSession);
+        voteOne.setMotion(motion);
         voteOne.setAssociateVote(true);
 
         Vote voteTwo = new Vote();
 
         voteTwo.setAssociateId(1L);
-        voteTwo.setVoteSession(voteSession);
+        voteTwo.setMotion(motion);
         voteTwo.setAssociateVote(true);
 
         voteRepository.save(voteOne);
@@ -88,19 +73,14 @@ public class VoteRepositoryTest {
     @Test
     void save_associateIdNull_shouldThrowViolationException() {
         Motion motion = new Motion();
+        motion.setOpeningTime(ZonedDateTime.now());
+        motion.setClosingTime(ZonedDateTime.now());
+
         motion = motionRepository.save(motion);
-
-        VoteSession voteSession = new VoteSession();
-
-        voteSession.setMotion(motion);
-        voteSession.setOpeningTime(LocalDateTime.now());
-        voteSession.setClosingTime(LocalDateTime.now());
-
-        voteSession = voteSessionRepository.save(voteSession);
 
         Vote vote = new Vote();
 
-        vote.setVoteSession(voteSession);
+        vote.setMotion(motion);
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();

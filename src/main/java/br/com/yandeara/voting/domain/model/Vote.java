@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"vote_session_id", "associate_id"})})
+@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"motion_id", "associate_id"})})
 
 public class Vote {
 
@@ -21,8 +21,8 @@ public class Vote {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "vote_session_id", nullable = false)
-    private VoteSession voteSession;
+    @JoinColumn(name = "motion_id", nullable = false)
+    private Motion motion;
 
     @NotNull
     private Long associateId;

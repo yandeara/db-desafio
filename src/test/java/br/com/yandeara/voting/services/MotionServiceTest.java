@@ -32,7 +32,7 @@ public class MotionServiceTest {
 
     @Test
     public void create_validRequest_shouldBeSaved() {
-        Motion motion = new Motion(1L, null);
+        Motion motion = new Motion(1L, null, null, null);
         MotionResponse motionResponse = new MotionResponse(1L, null);
 
         when(motionRepository.save(any(Motion.class))).thenReturn(motion);

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 public class VoteSessionResponse {
 
     private Long id;
-    private Long motionId;
-    private LocalDateTime openingTime;
-    private LocalDateTime closingTime;
+    private String description;
+    private ZonedDateTime openingTime;
+    private ZonedDateTime closingTime;
 
 }

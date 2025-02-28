@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,56 +23,56 @@ public class TimeServiceTest {
 
     @Test
     public void addTime_validInputSecond_shouldBeSuccessful() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime timeAdded = timeServiceImpl.addTime(now, "1s");
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime timeAdded = timeServiceImpl.addTime(now, "1s");
 
         assertEquals(now.plusSeconds(1), timeAdded);
     }
 
     @Test
     public void addTime_validInputMinute_shouldBeSuccessful() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime timeAdded = timeServiceImpl.addTime(now, "1m");
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime timeAdded = timeServiceImpl.addTime(now, "1m");
 
         assertEquals(now.plusMinutes(1), timeAdded);
     }
 
     @Test
     public void addTime_validInputHour_shouldBeSuccessful() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime timeAdded = timeServiceImpl.addTime(now, "1H");
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime timeAdded = timeServiceImpl.addTime(now, "1H");
 
         assertEquals(now.plusHours(1), timeAdded);
     }
 
     @Test
     public void addTime_validInputDay_shouldBeSuccessful() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime timeAdded = timeServiceImpl.addTime(now, "1D");
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime timeAdded = timeServiceImpl.addTime(now, "1D");
 
         assertEquals(now.plusDays(1), timeAdded);
     }
 
     @Test
     public void addTime_validInputWeek_shouldBeSuccessful() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime timeAdded = timeServiceImpl.addTime(now, "1W");
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime timeAdded = timeServiceImpl.addTime(now, "1W");
 
         assertEquals(now.plusWeeks(1), timeAdded);
     }
 
     @Test
     public void addTime_validInputMonth_shouldBeSuccessful() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime timeAdded = timeServiceImpl.addTime(now, "1M");
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime timeAdded = timeServiceImpl.addTime(now, "1M");
 
         assertEquals(now.plusMonths(1), timeAdded);
     }
 
     @Test
     public void addTime_validInputYear_shouldBeSuccessful() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime timeAdded = timeServiceImpl.addTime(now, "1y");
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime timeAdded = timeServiceImpl.addTime(now, "1y");
 
         assertEquals(now.plusYears(1), timeAdded);
     }
@@ -80,7 +80,7 @@ public class TimeServiceTest {
     @Test
     public void addTime_invalidInput_shouldThrowInvalidTimeFormatException() {
         assertThrows(InvalidTimeFormatException.class, () -> {
-            timeServiceImpl.addTime(LocalDateTime.now(), "1x");
+            timeServiceImpl.addTime(ZonedDateTime.now(), "1x");
         });
     }
 

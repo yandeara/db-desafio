@@ -1,6 +1,6 @@
 package br.com.yandeara.voting.application.mapper;
 
-import br.com.yandeara.voting.domain.model.VoteSession;
+import br.com.yandeara.voting.domain.model.Motion;
 import br.com.yandeara.voting.web.response.VoteSessionResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,7 +11,6 @@ public interface VoteSessionMapper {
 
     VoteSessionMapper INSTANCE = Mappers.getMapper( VoteSessionMapper.class );
 
-    @Mapping(source = "motion.id", target = "motionId")
-    VoteSessionResponse toResponse(VoteSession voteSession);
+    VoteSessionResponse toResponse(Motion motion);
 
 }
