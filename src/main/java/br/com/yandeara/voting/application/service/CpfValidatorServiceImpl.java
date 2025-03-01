@@ -3,10 +3,12 @@ package br.com.yandeara.voting.application.service;
 import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
 import br.com.yandeara.voting.web.response.CpfValidatorResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
+@Slf4j
 @Service
 public class CpfValidatorServiceImpl implements CpfValidatorService {
 
@@ -24,8 +26,10 @@ public class CpfValidatorServiceImpl implements CpfValidatorService {
 
         if (new Random().nextBoolean()) {
             response.setVoteStatus(ABLE_TO_VOTE);
+            log.info("CPF valido e habilitado a votar: {}", cpf);
         } else {
             response.setVoteStatus(UNABLE_TO_VOTE);
+            log.info("CPF valido porem inabilitado a votar: {}", cpf);
         }
 
         return response;

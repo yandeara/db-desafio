@@ -7,11 +7,12 @@ import br.com.yandeara.voting.domain.repository.MotionRepository;
 import br.com.yandeara.voting.web.request.VoteSessionRequest;
 import br.com.yandeara.voting.web.response.VoteSessionResponse;
 import jakarta.persistence.EntityNotFoundException;
-import org.apache.coyote.BadRequestException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
 
+@Slf4j
 @Service
 public class VoteSessionServiceImpl implements VoteSessionService {
 
@@ -39,7 +40,9 @@ public class VoteSessionServiceImpl implements VoteSessionService {
                 motion.getOpeningTime(),
                 voteSessionRequest.getSessionDuration() != null ? voteSessionRequest.getSessionDuration() : "1m"));
 
-        motionRepository.save(motion);
+        motion = motionRepository.save(motion);
+
+        log.info("Sessão Aberta: Pauta: {} - Abertura: {} - Encerramento: {}", motion.getId(), motion.getOpeningTime(), motion.getClosingTime());
 
         return voteSessionMapper.toResponse(motion);
     }

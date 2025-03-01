@@ -4,7 +4,6 @@ import br.com.yandeara.voting.application.exception.AssociateAlreadyVotedExcepti
 import br.com.yandeara.voting.application.exception.MotionAlreadyClosedException;
 import br.com.yandeara.voting.application.exception.MotionNotOpenedException;
 import br.com.yandeara.voting.application.mapper.VoteMapper;
-import br.com.yandeara.voting.domain.dto.VoteCountDto;
 import br.com.yandeara.voting.domain.model.Motion;
 import br.com.yandeara.voting.domain.model.Vote;
 import br.com.yandeara.voting.domain.repository.MotionRepository;
@@ -13,10 +12,12 @@ import br.com.yandeara.voting.web.request.VoteRequest;
 import br.com.yandeara.voting.web.response.VoteCountResponse;
 import br.com.yandeara.voting.web.response.VoteResponse;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
 
+@Slf4j
 @Service
 public class VoteServiceImpl implements VoteService {
 
@@ -53,6 +54,8 @@ public class VoteServiceImpl implements VoteService {
         vote.setVoteTime(ZonedDateTime.now());
 
         vote = voteRepository.save(vote);
+
+        log.info("Voto Registrado: Pauta: {} - Associado: {}", vote.getMotion().getId(), vote.getAssociateId());
 
         return voteMapper.toResponse(vote);
     }

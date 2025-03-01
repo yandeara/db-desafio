@@ -5,8 +5,10 @@ import br.com.yandeara.voting.domain.model.Motion;
 import br.com.yandeara.voting.domain.repository.MotionRepository;
 import br.com.yandeara.voting.web.request.MotionRequest;
 import br.com.yandeara.voting.web.response.MotionResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class MotionServiceImpl implements MotionService {
 
@@ -22,6 +24,9 @@ public class MotionServiceImpl implements MotionService {
     public MotionResponse create(MotionRequest dto) {
         Motion motion = motionMapper.toEntity(dto);
         motion = motionRepository.save(motion);
+
+        log.info("Nova Pauta criada: {} - {}", motion.getId(), motion.getDescription());
+
         return motionMapper.toResponse(motion);
     }
 

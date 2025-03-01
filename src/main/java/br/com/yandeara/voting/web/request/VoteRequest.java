@@ -19,6 +19,6 @@ public class VoteRequest {
     private Long associateId;
 
     @NotNull(message = "Associate Vote is required")
-    private Boolean associateVote;
+    private VoteEnum associateVote;
 
 }
