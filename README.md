@@ -24,7 +24,7 @@ cd db-desafio
 Caso queira usar Docker para levantar um container do YugaByte:
 
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 Caso prefira utilizar um banco de dados que está ja instalado, so trocar as informações do Banco no application.properties

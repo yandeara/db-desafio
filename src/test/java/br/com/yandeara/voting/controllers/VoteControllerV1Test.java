@@ -8,6 +8,7 @@ import br.com.yandeara.voting.application.service.VoteSessionService;
 import br.com.yandeara.voting.web.controller.MotionControllerV1;
 import br.com.yandeara.voting.web.controller.VoteControllerV1;
 import br.com.yandeara.voting.web.request.MotionRequest;
+import br.com.yandeara.voting.web.request.VoteEnum;
 import br.com.yandeara.voting.web.request.VoteSessionRequest;
 import br.com.yandeara.voting.web.response.MotionResponse;
 import br.com.yandeara.voting.web.response.VoteCountResponse;
@@ -44,12 +45,12 @@ public class VoteControllerV1Test {
 
     @Test
     public void vote_fullBody_returnOk() throws Exception {
-        VoteResponse voteResponse = new VoteResponse(1L, 1L, 1L, true, ZonedDateTime.now());
+        VoteResponse voteResponse = new VoteResponse(1L, 1L, 1L, VoteEnum.YES, ZonedDateTime.now());
 
         when(voteService.vote(any())).thenReturn(voteResponse);
 
         mockMvc.perform(post("/api/v1/vote").contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"motionId\":1,\"associateId\":1,\"associateVote\":true}"))
+                        .content("{\"motionId\":1,\"associateId\":1,\"associateVote\":\"Sim\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.motionId").exists())
@@ -65,7 +66,7 @@ public class VoteControllerV1Test {
 
         mockMvc.perform(post("/api/v1/vote").contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"motionId\":1,\"associateId\":1,\"associateVote\":true}"))
+                        .content("{\"motionId\":1,\"associateId\":1,\"associateVote\":\"Sim\"}"))
                 .andExpect(status().isNotFound());
     }
 
@@ -75,7 +76,7 @@ public class VoteControllerV1Test {
 
         mockMvc.perform(post("/api/v1/vote").contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"motionId\":1,\"associateId\":1,\"associateVote\":true}"))
+                        .content("{\"motionId\":1,\"associateId\":1,\"associateVote\":\"Sim\"}"))
                 .andExpect(status().isBadRequest());
     }
 
@@ -85,7 +86,7 @@ public class VoteControllerV1Test {
 
         mockMvc.perform(post("/api/v1/vote").contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"motionId\":1,\"associateId\":1,\"associateVote\":true}"))
+                        .content("{\"motionId\":1,\"associateId\":1,\"associateVote\":\"Sim\"}"))
                 .andExpect(status().isBadRequest());
     }
 
@@ -95,7 +96,7 @@ public class VoteControllerV1Test {
 
         mockMvc.perform(post("/api/v1/vote").contentType(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"motionId\":1,\"associateId\":1,\"associateVote\":true}"))
+                        .content("{\"motionId\":1,\"associateId\":1,\"associateVote\":\"Sim\"}"))
                 .andExpect(status().isBadRequest());
     }
 

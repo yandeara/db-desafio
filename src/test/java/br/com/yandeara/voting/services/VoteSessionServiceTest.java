@@ -46,6 +46,7 @@ public class VoteSessionServiceTest {
         VoteSessionResponse voteSessionResponse = new VoteSessionResponse(1L, null, ZonedDateTime.now(), ZonedDateTime.now());
 
         when(motionRepository.findById(any())).thenReturn(Optional.of(motion));
+        when(motionRepository.save(any())).thenReturn(motion);
         when(timeService.addTime(any(), any())).thenReturn(ZonedDateTime.now());
         when(voteSessionMapper.toResponse(any(Motion.class))).thenReturn(voteSessionResponse);
 

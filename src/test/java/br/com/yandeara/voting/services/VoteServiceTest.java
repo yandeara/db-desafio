@@ -10,6 +10,7 @@ import br.com.yandeara.voting.domain.model.Motion;
 import br.com.yandeara.voting.domain.model.Vote;
 import br.com.yandeara.voting.domain.repository.MotionRepository;
 import br.com.yandeara.voting.domain.repository.VoteRepository;
+import br.com.yandeara.voting.web.request.VoteEnum;
 import br.com.yandeara.voting.web.request.VoteRequest;
 import br.com.yandeara.voting.web.request.VoteSessionRequest;
 import br.com.yandeara.voting.web.response.VoteResponse;
@@ -50,14 +51,14 @@ public class VoteServiceTest {
         Motion motion = new Motion(1L, null, ZonedDateTime.now(), ZonedDateTime.now().plusDays(1L));
         Vote vote = new Vote(1L, motion, 1L, true, ZonedDateTime.now());
 
-        VoteResponse voteResponse = new VoteResponse(1L, 1L, 1L, true, ZonedDateTime.now());
+        VoteResponse voteResponse = new VoteResponse(1L, 1L, 1L, VoteEnum.YES, ZonedDateTime.now());
 
         when(motionRepository.findById(any())).thenReturn(Optional.of(motion));
         when(voteMapper.toEntity(any())).thenReturn(vote);
         when(voteMapper.toResponse(any())).thenReturn(voteResponse);
         when(voteRepository.save(any())).thenReturn(vote);
 
-        VoteRequest voteRequest = new VoteRequest(1L, 1L, true);
+        VoteRequest voteRequest = new VoteRequest(1L, 1L, VoteEnum.YES);
         VoteResponse voteResponseSaved = voteServiceImpl.vote(voteRequest);
 
         assertNotNull(voteResponseSaved);
